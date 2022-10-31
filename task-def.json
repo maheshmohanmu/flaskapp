@@ -3,7 +3,7 @@
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
-      "name": "flaskapp-task",
+      "name": "flaskapp-img",
       "image": "flaskapp-img",
       "portMappings": [
         {
