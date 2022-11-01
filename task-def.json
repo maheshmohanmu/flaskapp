@@ -1,5 +1,5 @@
 {
-  "family": "flaskapp-task",
+  "family": "flaskapp-img",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
