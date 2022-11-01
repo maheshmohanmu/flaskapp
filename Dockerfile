@@ -11,7 +11,7 @@ RUN pip install --editable .
 #RUN python setup.py install
 #RUN flask init-db
 
-# Unit test
+# Unit tests
 # RUN pip install pytest && pytest
 
 EXPOSE 5000
