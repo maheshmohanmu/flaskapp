@@ -7,9 +7,9 @@ on:
 env:
   AWS_REGION: ap-northeast-2                  
   ECR_REPOSITORY: ecr-repo-mahesh         
-  ECS_SERVICE: flaskapp-servic             
-  ECS_CLUSTER: flaskapp-cluster                 
-  ECS_TASK_DEFINITION: task-def.json # set this to the path to your Amazon ECS task definition
+  ECS_SERVICE: flaskapp-servic2             
+  ECS_CLUSTER: flaskapp-cluster2                 
+  #ECS_TASK_DEFINITION: task-def.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: flaskapp-img          
 
@@ -49,13 +49,17 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    
+    - name: Download task definition
+      run: |
+        aws ecs describe-task-definition --task-definition flaskapp-img2 --query taskDefinition > task-definition.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
+        container-name: task-definition.json #${{ env.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
         #image: flaskapp-img
 
