@@ -3,8 +3,6 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
   AWS_REGION: ap-northeast-2                  
@@ -45,7 +43,7 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: test
+    #needs: test
     runs-on: ubuntu-latest
     environment: production
 
