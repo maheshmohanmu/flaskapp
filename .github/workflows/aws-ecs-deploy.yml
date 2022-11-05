@@ -51,6 +51,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     
     - name: Download task definition
+      id: down-def
       run: |
         aws ecs describe-task-definition --task-definition flaskapp-img2 --query taskDefinition > task-definition.json
 
@@ -58,7 +59,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: task-definition.json #${{ env.ECS_TASK_DEFINITION }}
+        task-definition: ${{ steps.down-def.outputs.task-definition }} #task-definition.json or ${{ env.ECS_TASK_DEFINITION }}
         container-name:  ${{ env.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
         #image: flaskapp-img
