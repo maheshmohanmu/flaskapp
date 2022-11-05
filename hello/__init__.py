@@ -12,6 +12,6 @@ def create_app():
 
     @app.route("/")
     def hello():
-        return "Hello, World2"
+        return "Hello, World CI CD"
 
     return app
